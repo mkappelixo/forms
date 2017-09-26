@@ -1,6 +1,6 @@
 <?php
 
-use AdamWathan\Form\Elements\RadioButton;
+use Galahad\Forms\Elements\RadioButton;
 
 class RadioButtonTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use AdamWathan\Form\Elements\Email;
+use Galahad\Forms\Elements\Email;
 
 class EmailTest extends PHPUnit_Framework_TestCase
 {

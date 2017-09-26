@@ -1,29 +1,42 @@
 {
-    "name": "adamwathan/form",
-    "description": "A basic framework agnostic form building package with a few extra niceties like remembering old input and retrieving error messages.",
+    "name": "galahad/forms",
+    "description": "Base for builder",
     "authors": [
         {
             "name": "Adam Wathan",
             "email": "adam.wathan@gmail.com"
+        },
+        {
+            "name": "Chris Morrell",
+            "homepage": "http://www.cmorrell.com"
         }
     ],
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=7.0",
+        "illuminate/support": "5.5.*"
     },
     "require-dev": {
-        "illuminate/support": "4.*",
-        "phpunit/phpunit": "3.7.*",
-        "mockery/mockery": "~0.9",
-        "satooshi/php-coveralls": "^1.0"
+        "phpunit/phpunit": "6.3.*",
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
-        "psr-0": {
-            "AdamWathan\\Form": "src/"
+        "psr-4": {
+            "Galahad\\Forms\\": "src/"
         }
     },
     "autoload-dev": {
         "classmap": ["tests/"]
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Galahad\\Forms\\FormsServiceProvider"
+            ],
+            "aliases": {
+                "Form": "Galahad\\Forms\\Facades\\Form"
+            }
+        }
+    }
 }

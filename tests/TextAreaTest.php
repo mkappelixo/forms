@@ -1,6 +1,6 @@
 <?php
 
-use AdamWathan\Form\Elements\TextArea;
+use Galahad\Forms\Elements\TextArea;
 
 class TextAreaTest extends PHPUnit_Framework_TestCase
 {

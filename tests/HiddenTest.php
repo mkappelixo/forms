@@ -1,6 +1,6 @@
 <?php
 
-use AdamWathan\Form\Elements\Hidden;
+use Galahad\Forms\Elements\Hidden;
 
 class HiddenTest extends PHPUnit_Framework_TestCase
 {

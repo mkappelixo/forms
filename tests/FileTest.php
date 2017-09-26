@@ -1,6 +1,6 @@
 <?php
 
-use AdamWathan\Form\Elements\File;
+use Galahad\Forms\Elements\File;
 
 class FileTest extends PHPUnit_Framework_TestCase
 {
