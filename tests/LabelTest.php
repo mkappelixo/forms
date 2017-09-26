@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Label;
 
-class LabelTest extends PHPUnit_Framework_TestCase
+class LabelTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

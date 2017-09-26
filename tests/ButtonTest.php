@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Button;
 
-class ButtonTest extends PHPUnit_Framework_TestCase
+class ButtonTest extends \PHPUnit\Framework\TestCase
 {
     public function testButtonCanBeCreated()
     {

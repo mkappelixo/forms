@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Email;
 
-class EmailTest extends PHPUnit_Framework_TestCase
+class EmailTest extends \PHPUnit\Framework\TestCase
 {
     use TextSubclassContractTest;
 

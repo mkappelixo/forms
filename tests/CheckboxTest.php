@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Checkbox;
 
-class CheckboxTest extends PHPUnit_Framework_TestCase
+class CheckboxTest extends \PHPUnit\Framework\TestCase
 {
     use InputContractTest;
 

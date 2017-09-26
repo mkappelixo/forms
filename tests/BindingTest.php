@@ -2,7 +2,7 @@
 
 use Galahad\Forms\FormBuilder;
 
-class BindingTest extends PHPUnit_Framework_TestCase
+class BindingTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

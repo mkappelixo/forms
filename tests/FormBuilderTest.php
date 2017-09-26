@@ -2,7 +2,7 @@
 
 use Galahad\Forms\FormBuilder;
 
-class FormBuilderTest extends PHPUnit_Framework_TestCase
+class FormBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

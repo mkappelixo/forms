@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\RadioButton;
 
-class RadioButtonTest extends PHPUnit_Framework_TestCase
+class RadioButtonTest extends \PHPUnit\Framework\TestCase
 {
     use InputContractTest;
 
