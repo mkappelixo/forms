@@ -2,49 +2,68 @@
 
 namespace Galahad\Forms\ErrorStore;
 
-use Illuminate\Session\Store as Session;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\MessageBag;
 
-class IlluminateErrorStore implements ErrorStoreInterface
+class IlluminateErrorStore implements ErrorStorInterface
 {
-    private $session;
+    /** @var \Illuminate\Contracts\Session\Session */
+    protected $session;
 
+    /**
+     * @param \Illuminate\Contracts\Session\Session $session
+     */
     public function __construct(Session $session)
     {
         $this->session = $session;
     }
 
+    /**
+     * @param string $key
+     * @return bool
+     */
     public function hasError($key)
     {
         if (! $this->hasErrors()) {
             return false;
         }
 
-        $key = $this->transformKey($key);
-
-        return $this->getErrors()->has($key);
+        return $this->getErrors()->has($this->transformKey($key));
     }
 
+    /**
+     * @param $key
+     * @return string|null
+     */
     public function getError($key)
     {
         if (! $this->hasError($key)) {
             return null;
         }
 
-        $key = $this->transformKey($key);
-
-        return $this->getErrors()->first($key);
+        return $this->getErrors()->first($this->transformKey($key));
     }
 
+    /**
+     * @return bool
+     */
     protected function hasErrors()
     {
         return $this->session->has('errors');
     }
 
+    /**
+     * @return \Illuminate\Support\MessageBag
+     */
     protected function getErrors()
     {
-        return $this->hasErrors() ? $this->session->get('errors') : null;
+        return $this->session->get('errors', new MessageBag());
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     protected function transformKey($key)
     {
         return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);

@@ -22,6 +22,8 @@ class Checkbox extends Input
     public function setOldValue($oldValue)
     {
         $this->oldValue = $oldValue;
+
+        return $this;
     }
 
     public function unsetOldValue()
