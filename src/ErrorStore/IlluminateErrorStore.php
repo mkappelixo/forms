@@ -5,7 +5,7 @@ namespace Galahad\Forms\ErrorStore;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\MessageBag;
 
-class IlluminateErrorStore implements ErrorStorInterface
+class IlluminateErrorStore implements ErrorStoreInterface
 {
     /** @var \Illuminate\Contracts\Session\Session */
     protected $session;
