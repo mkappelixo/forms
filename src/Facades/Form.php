@@ -5,6 +5,7 @@ namespace Galahad\Forms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @codeCoverageIgnore
  * @mixin \Galahad\Forms\FormBuilder
  */
 class Form extends Facade

@@ -6,6 +6,9 @@ use Galahad\Forms\ErrorStore\IlluminateErrorStore;
 use Galahad\Forms\OldInput\IlluminateOldInputProvider;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @codeCoverageIgnore
+ */
 class FormsServiceProvider extends ServiceProvider
 {
     /**
