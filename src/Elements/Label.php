@@ -4,17 +4,26 @@ namespace Galahad\Forms\Elements;
 
 class Label extends Element
 {
+    /** @var \Galahad\Forms\Elements\Element */
     protected $element;
 
+    /** @var bool */
     protected $labelBefore;
 
+    /** @var string */
     protected $label;
 
+    /**
+     * @param $label
+     */
     public function __construct($label)
     {
         $this->label = $label;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $tags = [sprintf('<label%s>', $this->renderAttributes())];
@@ -34,6 +43,10 @@ class Label extends Element
         return implode($tags);
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function forId($name)
     {
         $this->setAttribute('for', $name);
@@ -41,6 +54,10 @@ class Label extends Element
         return $this;
     }
 
+    /**
+     * @param \Galahad\Forms\Elements\Element $element
+     * @return $this
+     */
     public function before(Element $element)
     {
         $this->element = $element;
@@ -49,6 +66,10 @@ class Label extends Element
         return $this;
     }
 
+    /**
+     * @param \Galahad\Forms\Elements\Element $element
+     * @return $this
+     */
     public function after(Element $element)
     {
         $this->element = $element;
@@ -57,6 +78,9 @@ class Label extends Element
         return $this;
     }
 
+    /**
+     * @return string
+     */
     protected function renderElement()
     {
         if (! $this->element) {
@@ -66,6 +90,9 @@ class Label extends Element
         return $this->element->render();
     }
 
+    /**
+     * @return \Galahad\Forms\Elements\Element
+     */
     public function getControl()
     {
         return $this->element;

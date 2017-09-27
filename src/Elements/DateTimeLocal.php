@@ -2,30 +2,20 @@
 
 namespace Galahad\Forms\Elements;
 
+use DateTime;
+
 class DateTimeLocal extends Text
 {
     protected $attributes = [
         'type' => 'datetime-local',
     ];
 
-    public function value($value)
+    protected function setValue($value)
     {
-        if ($value instanceof \DateTime) {
+        if ($value instanceof DateTime) {
             $value = $value->format('Y-m-d\TH:i');
         }
 
-        return parent::value($value);
-    }
-
-    public function defaultValue($value)
-    {
-        if (! $this->hasValue()) {
-            if ($value instanceof \DateTime) {
-                $value = $value->format('Y-m-d\TH:i');
-            }
-            $this->setValue($value);
-        }
-
-        return $this;
+        return parent::setValue($value);
     }
 }

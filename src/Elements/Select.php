@@ -4,16 +4,26 @@ namespace Galahad\Forms\Elements;
 
 class Select extends FormControl
 {
+    /** @var array */
     protected $options;
 
+    /** @var string */
     protected $selected;
 
+    /**
+     * @param string $name
+     * @param array $options
+     */
     public function __construct($name, $options = [])
     {
         $this->setName($name);
         $this->setOptions($options);
     }
 
+    /**
+     * @param string $option
+     * @return $this
+     */
     public function select($option)
     {
         $this->selected = $option;
@@ -21,56 +31,108 @@ class Select extends FormControl
         return $this;
     }
 
-    protected function setOptions($options)
-    {
-        $this->options = $options;
-    }
-
+    /**
+     * @param $options
+     * @return $this
+     */
     public function options($options)
     {
-        $this->setOptions($options);
+        $this->options = $options;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
-        return implode([
-            sprintf('<select%s>', $this->renderAttributes()),
-            $this->renderOptions(),
-            '</select>',
-        ]);
+        return sprintf('<select%s>%s</select>', $this->renderAttributes(), $this->renderOptions());
     }
 
+    /**
+     * @param string $value
+     * @param string $label
+     * @return $this
+     */
+    public function addOption($value, $label)
+    {
+        $this->options[$value] = $label;
+
+        return $this;
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function defaultValue($value)
+    {
+        if (null === $this->selected) {
+            $this->select($value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function multiple()
+    {
+        $name = $this->attributes['name'];
+        if (substr($name, -2) !== '[]') {
+            $name .= '[]';
+        }
+
+        $this->setName($name);
+        $this->setAttribute('multiple', 'multiple');
+
+        return $this;
+    }
+
+    /**
+     * @param array $options
+     * @return $this
+     */
+    protected function setOptions($options)
+    {
+        return $this->options($options);
+    }
+
+    /**
+     * @return string
+     */
     protected function renderOptions()
     {
-        list($values, $labels) = $this->splitKeysAndValues($this->options);
+        if (empty($this->options)) {
+            return '';
+        }
 
-        $tags = array_map(function ($value, $label) {
-            if (is_array($label)) {
-                return $this->renderOptGroup($value, $label);
-            }
-            return $this->renderOption($value, $label);
-        }, $values, $labels);
-
-        return implode($tags);
+        return collect($this->options)->map(function ($label, $value) {
+                return is_array($label) ? $this->renderOptGroup($value, $label) : $this->renderOption($value, $label);
+            })->implode('');
     }
 
+    /**
+     * @param string $label
+     * @param array|string $options
+     * @return string
+     */
     protected function renderOptGroup($label, $options)
     {
-        list($values, $labels) = $this->splitKeysAndValues($options);
+        $options = collect($options)->map(function ($label, $value) {
+                return $this->renderOption($value, $label);
+            })->implode('');
 
-        $options = array_map(function ($value, $label) {
-            return $this->renderOption($value, $label);
-        }, $values, $labels);
-
-        return implode([
-            sprintf('<optgroup label="%s">', $label),
-            implode($options),
-            '</optgroup>',
-        ]);
+        return sprintf('<optgroup label="%s">%s</optgroup>', $label, $options);
     }
 
+    /**
+     * @param string $value
+     * @param string $label
+     * @return string
+     */
     protected function renderOption($value, $label)
     {
         return vsprintf('<option value="%s"%s>%s</option>', [
@@ -80,39 +142,12 @@ class Select extends FormControl
         ]);
     }
 
+    /**
+     * @param string $value
+     * @return bool
+     */
     protected function isSelected($value)
     {
-        return in_array($value, (array) $this->selected);
-    }
-
-    public function addOption($value, $label)
-    {
-        $this->options[$value] = $label;
-
-        return $this;
-    }
-
-    public function defaultValue($value)
-    {
-        if (isset($this->selected)) {
-            return $this;
-        }
-
-        $this->select($value);
-
-        return $this;
-    }
-
-    public function multiple()
-    {
-        $name = $this->attributes['name'];
-        if (substr($name, -2) != '[]') {
-            $name .= '[]';
-        }
-
-        $this->setName($name);
-        $this->setAttribute('multiple', 'multiple');
-
-        return $this;
+        return in_array($value, (array)$this->selected);
     }
 }

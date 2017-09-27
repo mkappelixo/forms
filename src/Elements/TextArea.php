@@ -10,31 +10,43 @@ class TextArea extends FormControl
         'cols' => 50,
     ];
 
+    /** @var string */
     protected $value;
 
+    /**
+     * @return string
+     */
     public function render()
     {
-        return implode([
-            sprintf('<textarea%s>', $this->renderAttributes()),
-            $this->escape($this->value),
-            '</textarea>',
-        ]);
+        return sprintf(
+            '<textarea%s>%s</textarea>',
+            $this->renderAttributes(),
+            $this->escape($this->value)
+        );
     }
 
+    /**
+     * @param string|int $rows
+     * @return $this
+     */
     public function rows($rows)
     {
-        $this->setAttribute('rows', $rows);
-
-        return $this;
+        return $this->attribute('rows', $rows);
     }
 
+    /**
+     * @param string|int $cols
+     * @return $this
+     */
     public function cols($cols)
     {
-        $this->setAttribute('cols', $cols);
-
-        return $this;
+        return $this->attribute('cols', $cols);
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
     public function value($value)
     {
         $this->value = $value;
@@ -42,13 +54,19 @@ class TextArea extends FormControl
         return $this;
     }
 
+    /**
+     * @param string $placeholder
+     * @return $this
+     */
     public function placeholder($placeholder)
     {
-        $this->setAttribute('placeholder', $placeholder);
-
-        return $this;
+        return $this->attribute('placeholder', $placeholder);
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
     public function defaultValue($value)
     {
         if (! $this->hasValue()) {
@@ -58,6 +76,9 @@ class TextArea extends FormControl
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     protected function hasValue()
     {
         return isset($this->value);

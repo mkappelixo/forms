@@ -4,6 +4,9 @@ use Galahad\Forms\FormBuilder;
 
 class BindingTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var FormBuilder */
+    protected $form;
+
     public function setUp()
     {
         $this->form = new FormBuilder;

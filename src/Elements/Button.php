@@ -8,8 +8,13 @@ class Button extends FormControl
         'type' => 'button',
     ];
 
+    /** @var string */
     protected $value;
 
+    /**
+     * @param $value
+     * @param string|null $name
+     */
     public function __construct($value, $name = null)
     {
         parent::__construct($name);
@@ -17,13 +22,22 @@ class Button extends FormControl
         $this->value($value);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         return sprintf('<button%s>%s</button>', $this->renderAttributes(), $this->value);
     }
 
+    /**
+     * @param $value
+     * @return $this
+     */
     public function value($value)
     {
         $this->value = $value;
+
+        return $this;
     }
 }

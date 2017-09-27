@@ -2,150 +2,203 @@
 
 namespace Galahad\Forms\Elements;
 
+/**
+ *
+ */
 abstract class Element
 {
+    /** @var array */
     protected $attributes = [];
 
-    protected function setAttribute($attribute, $value = null)
+    /**
+     * @return mixed
+     * @param string $key
+     * @param mixed $default
+     */
+    public function getAttribute($key, $default = null)
     {
-        if (is_null($value)) {
-            return;
+        if ($this->hasAttribute($key)) {
+            return $this->attributes[$key];
         }
 
-        $this->attributes[$attribute] = $value;
+        return $default;
     }
 
-    protected function removeAttribute($attribute)
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasAttribute($key)
+    {
+        return $key && isset($this->attributes[$key]);
+    }
+
+    /**
+     * @param string $attribute
+     * @param string|null $value
+     * @return $this
+     */
+    public function setAttribute($attribute, $value = null)
+    {
+        return $this->attribute($attribute, $value);
+    }
+
+    /**
+     * @param string $attribute
+     * @return $this
+     */
+    public function removeAttribute($attribute)
     {
         unset($this->attributes[$attribute]);
-    }
-
-    public function getAttribute($attribute)
-    {
-        return $this->attributes[$attribute];
-    }
-
-    public function data($attribute, $value = null)
-    {
-        if (is_array($attribute)) {
-            foreach ($attribute as $key => $val) {
-                $this->setAttribute('data-'.$key, $val);
-            }
-        } else {
-            $this->setAttribute('data-'.$attribute, $value);
-        }
 
         return $this;
     }
 
+    /**
+     * @param string $attribute
+     * @param string $value
+     * @return $this
+     */
     public function attribute($attribute, $value)
     {
-        $this->setAttribute($attribute, $value);
+        if (null !== $value) {
+            $this->attributes[$attribute] = $value;
+        }
 
         return $this;
     }
 
+    /**
+     * @param string|array $attribute
+     * @param string $value
+     * @return $this
+     */
+    public function data($attribute, $value = null)
+    {
+        $attributes = is_array($attribute) ? $attribute : [$attribute => $value];
+
+        foreach ($attributes as $key => $val) {
+            $this->setAttribute("data-{$key}", $val);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $attribute
+     * @return $this
+     */
     public function clear($attribute)
     {
-        if (! isset($this->attributes[$attribute])) {
-            return $this;
-        }
-
-        $this->removeAttribute($attribute);
-
-        return $this;
+        return $this->removeAttribute($attribute);
     }
 
+    /**
+     * @param string $class
+     * @return $this
+     */
     public function addClass($class)
     {
-        if (isset($this->attributes['class'])) {
-            $class = $this->attributes['class'] . ' ' . $class;
+        if ($existing = $this->getAttribute('class')) {
+            $class = "$existing $class";
         }
 
-        $this->setAttribute('class', $class);
-
-        return $this;
+        return $this->attribute('class', $class);
     }
 
+    /**
+     * @param string|array $class
+     * @return $this
+     */
     public function removeClass($class)
     {
-        if (! isset($this->attributes['class'])) {
-            return $this;
-        }
-
-        $class = trim(str_replace($class, '', $this->attributes['class']));
-        if ($class == '') {
+        if ($existing = $this->getAttribute('class')) {
             $this->removeAttribute('class');
-            return $this;
-        }
 
-        $this->setAttribute('class', $class);
+            $next = array_diff(
+                explode(' ', $existing),
+                is_array($class) ? $class : explode(' ', $class)
+            );
+
+            if (!empty($next)) {
+                $this->attribute('class', implode(' ', $next));
+            }
+        }
 
         return $this;
     }
 
+    /**
+     * @param string $id
+     * @return $this
+     */
     public function id($id)
     {
-        $this->setId($id);
-
-        return $this;
+        return $this->attribute('id', $id);
     }
 
-    protected function setId($id)
-    {
-        $this->setAttribute('id', $id);
-    }
-
+    /**
+     * @return string
+     */
     abstract public function render();
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->render();
     }
 
+    /**
+     * $element->foo('bar') -> $element->attribute('foo', 'bar')
+     * $element->foo() -> $element->attribute('foo', 'foo')
+     *
+     * @param string $method
+     * @param array $params
+     * @return $this|\Galahad\Forms\Elements\Element
+     */
+    public function __call($method, $params)
+    {
+        return $this->attribute($method, count($params) ? $params[0] : $method);
+    }
+
+    /**
+     * @return string
+     */
     protected function renderAttributes()
     {
-        list($attributes, $values) = $this->splitKeysAndValues($this->attributes);
-
-        return implode(array_map(function ($attribute, $value) {
-            return sprintf(' %s="%s"', $attribute, $this->escape($value));
-        }, $attributes, $values));
-    }
-
-    protected function splitKeysAndValues($array)
-    {
-        // Disgusting crap because people might have passed a collection
-        $keys = [];
-        $values = [];
-
-        foreach ($array as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
+        if (empty($this->attributes)) {
+            return '';
         }
 
-        return [$keys, $values];
+        return collect($this->attributes)
+            ->map(function($value, $key) {
+                return sprintf(' %s="%s"', $key, $this->escape($value));
+            })
+            ->implode('');
     }
 
+    /**
+     * @param string $attribute
+     * @param bool $value
+     * @return $this
+     */
     protected function setBooleanAttribute($attribute, $value)
     {
         if ($value) {
-            $this->setAttribute($attribute, $attribute);
-        } else {
-            $this->removeAttribute($attribute);
+            return $this->attribute($attribute, $attribute);
         }
+
+        return $this->removeAttribute($attribute);
     }
 
+    /**
+     * @param string $value
+     * @return string
+     */
     protected function escape($value)
     {
         return htmlentities($value, ENT_QUOTES, 'UTF-8');
-    }
-
-    public function __call($method, $params)
-    {
-        $params = count($params) ? $params : [$method];
-        $params = array_merge([$method], $params);
-        call_user_func_array([$this, 'attribute'], $params);
-
-        return $this;
     }
 }

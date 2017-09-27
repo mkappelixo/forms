@@ -8,13 +8,19 @@ class Text extends Input
         'type' => 'text',
     ];
 
+    /**
+     * @param string $placeholder
+     * @return $this
+     */
     public function placeholder($placeholder)
     {
-        $this->setAttribute('placeholder', $placeholder);
-
-        return $this;
+        return $this->attribute('placeholder', $placeholder);
     }
 
+    /**
+     * @param $value
+     * @return $this
+     */
     public function defaultValue($value)
     {
         if (! $this->hasValue()) {
@@ -24,6 +30,9 @@ class Text extends Input
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     protected function hasValue()
     {
         return isset($this->attributes['value']);

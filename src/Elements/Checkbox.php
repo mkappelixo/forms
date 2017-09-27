@@ -8,10 +8,16 @@ class Checkbox extends Input
         'type' => 'checkbox',
     ];
 
+    /** @var bool */
     protected $checked;
 
+    /** @var string */
     protected $oldValue;
 
+    /**
+     * @param string $name
+     * @param mixed $value
+     */
     public function __construct($name, $value = 1)
     {
         parent::__construct($name);
@@ -19,6 +25,10 @@ class Checkbox extends Input
         $this->setValue($value);
     }
 
+    /**
+     * @param $oldValue
+     * @return $this
+     */
     public function setOldValue($oldValue)
     {
         $this->oldValue = $oldValue;
@@ -26,29 +36,44 @@ class Checkbox extends Input
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function unsetOldValue()
     {
         $this->oldValue = null;
+
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function defaultToChecked()
     {
-        if (! isset($this->checked) && is_null($this->oldValue)) {
+        if (null === $this->checked && null === $this->oldValue) {
             $this->check();
         }
 
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function defaultToUnchecked()
     {
-        if (! isset($this->checked) && is_null($this->oldValue)) {
+        if (null === $this->checked && null === $this->oldValue) {
             $this->uncheck();
         }
 
         return $this;
     }
 
+    /**
+     * @param $state
+     * @return $this
+     */
     public function defaultCheckedState($state)
     {
         $state ? $this->defaultToChecked() : $this->defaultToUnchecked();
@@ -56,6 +81,9 @@ class Checkbox extends Input
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function check()
     {
         $this->unsetOldValue();
@@ -64,6 +92,9 @@ class Checkbox extends Input
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function uncheck()
     {
         $this->unsetOldValue();
@@ -72,6 +103,10 @@ class Checkbox extends Input
         return $this;
     }
 
+    /**
+     * @param bool $checked
+     * @return $this
+     */
     protected function setChecked($checked = true)
     {
         $this->checked = $checked;
@@ -80,21 +115,28 @@ class Checkbox extends Input
         if ($checked) {
             $this->setAttribute('checked', 'checked');
         }
+
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function checkBinding()
     {
-        $currentValue = (string) $this->getAttribute('value');
+        $current = (string) $this->getAttribute('value');
 
-        $oldValue = $this->oldValue;
-        $oldValue = is_array($oldValue) ? $oldValue : [$oldValue];
-        $oldValue = array_map('strval', $oldValue);
+        collect($this->oldValue)
+            ->first(function($old) use ($current) {
+                return 0 === strcmp($old, $current) && $this->check();
+            });
 
-        if (in_array($currentValue, $oldValue)) {
-            return $this->check();
-        }
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $this->checkBinding();

@@ -4,63 +4,99 @@ namespace Galahad\Forms\Elements;
 
 abstract class FormControl extends Element
 {
+    protected static $tabIndex = 1;
+
+    /**
+     * @param $name
+     */
     public function __construct($name)
     {
         $this->setName($name);
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     protected function setName($name)
     {
-        $this->setAttribute('name', $name);
+        return $this->setAttribute('name', $name);
     }
 
+    /**
+     * @param bool $conditional
+     * @return $this
+     */
     public function required($conditional = true)
     {
-        $this->setBooleanAttribute('required', $conditional);
-
-        return $this;
+        return $this->setBooleanAttribute('required', $conditional);
     }
 
+    /**
+     * @return $this
+     */
     public function optional()
     {
-        $this->removeAttribute('required');
-
-        return $this;
+        return $this->removeAttribute('required');
     }
 
+    /**
+     * @param bool $conditional
+     * @return $this
+     */
     public function disable($conditional = true)
     {
-        $this->setBooleanAttribute('disabled', $conditional);
-
-        return $this;
+        return $this->setBooleanAttribute('disabled', $conditional);
     }
 
+    /**
+     * @param bool $conditional
+     * @return $this
+     */
     public function readonly($conditional = true)
     {
-        $this->setBooleanAttribute('readonly', $conditional);
-
-        return $this;
+        return $this->setBooleanAttribute('readonly', $conditional);
     }
 
+    /**
+     * @return $this
+     */
     public function enable()
     {
-        $this->removeAttribute('disabled');
-        $this->removeAttribute('readonly');
-
-        return $this;
+        return $this->removeAttribute('disabled')
+            ->removeAttribute('readonly');
     }
 
+    /**
+     * @return $this
+     */
     public function autofocus()
     {
-        $this->setAttribute('autofocus', 'autofocus');
-
-        return $this;
+        return $this->setAttribute('autofocus', 'autofocus');
     }
 
+    /**
+     * @return $this
+     */
     public function unfocus()
     {
-        $this->removeAttribute('autofocus');
+        return $this->removeAttribute('autofocus');
+    }
 
-        return $this;
+    /**
+     * @param int|null $index
+     * @return $this
+     */
+    public function tabindex($index = null)
+    {
+        return $this->attribute('tabindex', $index ?? static::$tabIndex++);
+    }
+
+    /**
+     * @return $this
+     */
+    public function untabbable()
+    {
+        return $this->tabindex(0);
     }
 }
