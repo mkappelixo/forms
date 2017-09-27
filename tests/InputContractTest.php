@@ -1,7 +1,13 @@
 <?php
 
+use Galahad\Forms\Elements\Input;
+
 trait InputContractTest
 {
+    /**
+     * @param $name
+     * @return \Galahad\Forms\Elements\Input
+     */
     abstract protected function newTestSubjectInstance($name);
 
     abstract protected function getTestSubjectType();
@@ -330,5 +336,53 @@ trait InputContractTest
 
         $message = 'moo attribute should be set through magic method without parameter';
         $this->assertRegExp($this->elementRegExp('moo="moo"'), $result, $message);
+    }
+
+    public function testSize()
+    {
+        $text = $this->newTestSubjectInstance('text');
+        $result = $text->size(40)->render();
+
+        $message = 'size attribute should be set';
+        $this->assertRegExp($this->elementRegExp('size="40"'), $result, $message);
+    }
+
+    /*
+    public function testAccept()
+    {
+        $this->runAttributeTest('accept', '.jpg');
+    }
+
+    public function testAcceptImages()
+    {
+        $this->runAttributeTest('acceptImages', null, 'accept', 'image/*');
+    }
+
+    public function testAcceptAudio()
+    {
+        $this->runAttributeTest('acceptAudio', null, 'accept', 'audio/*');
+    }
+
+    public function testAcceptVideo()
+    {
+        $this->runAttributeTest('acceptVideo', null, 'accept', 'video/*');
+    }
+    */
+
+    protected function runAttributeTest($method, $value = null, $attribute = null, $expected = null, $subject = 'text')
+    {
+        $attribute = $attribute ?? $method;
+        $expected = preg_quote($expected ?? $value, '/');
+
+        $result = call_user_func_array(
+            [$this->newTestSubjectInstance($subject), $method],
+            (array) $value
+        )->render();
+
+        $this->assertRegExp(
+            $this->elementRegExp("$attribute=\"$expected\""),
+            $result,
+            "calling {$method}() should set '$attribute' attribute"
+        );
     }
 }
