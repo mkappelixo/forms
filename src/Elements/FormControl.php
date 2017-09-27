@@ -20,7 +20,7 @@ abstract class FormControl extends Element
      */
     protected function setName($name)
     {
-        return $this->setAttribute('name', $name);
+        return $this->attribute('name', $name);
     }
 
     /**
@@ -72,7 +72,7 @@ abstract class FormControl extends Element
      */
     public function autofocus()
     {
-        return $this->setAttribute('autofocus', 'autofocus');
+        return $this->attribute('autofocus', 'autofocus');
     }
 
     /**

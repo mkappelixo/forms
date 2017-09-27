@@ -9,7 +9,16 @@ use Illuminate\Support\ServiceProvider;
 class FormsServiceProvider extends ServiceProvider
 {
     /**
-     * Register to container.
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
      */
     public function register()
     {
@@ -17,6 +26,8 @@ class FormsServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get the services provided by the provider.
+     *
      * @return array
      */
     public function provides()

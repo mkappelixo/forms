@@ -125,7 +125,7 @@ class FormOpen extends Element
      */
     public function setMethod($method)
     {
-        $this->setAttribute('method', $method);
+        $this->attribute('method', $method);
 
         return $this;
     }
@@ -136,7 +136,7 @@ class FormOpen extends Element
      */
     public function action($action)
     {
-        $this->setAttribute('action', $action);
+        $this->attribute('action', $action);
 
         return $this;
     }
@@ -158,7 +158,7 @@ class FormOpen extends Element
      */
     public function encodingType($type)
     {
-        $this->setAttribute('enctype', $type);
+        $this->attribute('enctype', $type);
 
         return $this;
     }

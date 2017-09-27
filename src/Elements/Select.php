@@ -86,7 +86,7 @@ class Select extends FormControl
         }
 
         $this->setName($name);
-        $this->setAttribute('multiple', 'multiple');
+        $this->attribute('multiple', 'multiple');
 
         return $this;
     }

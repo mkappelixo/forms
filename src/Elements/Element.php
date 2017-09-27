@@ -78,7 +78,7 @@ abstract class Element
         $attributes = is_array($attribute) ? $attribute : [$attribute => $value];
 
         foreach ($attributes as $key => $val) {
-            $this->setAttribute("data-{$key}", $val);
+            $this->attribute("data-{$key}", $val);
         }
 
         return $this;
