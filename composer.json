@@ -1,42 +1,44 @@
 {
-    "name": "galahad/forms",
-    "description": "Base for builder",
-    "authors": [
-        {
-            "name": "Adam Wathan",
-            "email": "adam.wathan@gmail.com"
-        },
-        {
-            "name": "Chris Morrell",
-            "homepage": "http://www.cmorrell.com"
-        }
-    ],
-    "license": "MIT",
-    "require": {
-        "php": ">=7.0",
-        "illuminate/support": "5.5.*"
+  "name": "galahad/forms",
+  "description": "Base for builder",
+  "authors": [
+    {
+      "name": "Adam Wathan",
+      "email": "adam.wathan@gmail.com"
     },
-    "require-dev": {
-        "phpunit/phpunit": "6.3.*",
-        "mockery/mockery": "0.9.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Galahad\\Forms\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "classmap": ["tests/"]
-    },
-    "minimum-stability": "stable",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Galahad\\Forms\\FormsServiceProvider"
-            ],
-            "aliases": {
-                "Form": "Galahad\\Forms\\Facades\\Form"
-            }
-        }
+    {
+      "name": "Chris Morrell",
+      "homepage": "http://www.cmorrell.com"
     }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0",
+    "illuminate/support": "5.5.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.3.*",
+    "mockery/mockery": "0.9.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Galahad\\Forms\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Galahad\\Forms\\FormsServiceProvider"
+      ],
+      "aliases": {
+        "Form": "Galahad\\Forms\\Facades\\Form"
+      }
+    }
+  }
 }
