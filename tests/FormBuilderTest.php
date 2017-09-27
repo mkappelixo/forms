@@ -2,21 +2,16 @@
 
 use Galahad\Forms\FormBuilder;
 
-class FormBuilderTest extends \PHPUnit\Framework\TestCase
+class FormBuilderTest extends TestCase
 {
     public function setUp()
     {
-        $this->form = new FormBuilder;
+        $this->form = new FormBuilder();
     }
 
     public function tearDown()
     {
         Mockery::close();
-    }
-
-    public function testFormBuilderCanBeCreated()
-    {
-        $formBuilder = new FormBuilder;
     }
 
     public function testFormOpen()
@@ -280,11 +275,6 @@ class FormBuilderTest extends \PHPUnit\Framework\TestCase
         $expected = '<input type="email" name="alternate_email">';
         $result = (string) $this->form->email('alternate_email');
         $this->assertEquals($expected, $result);
-    }
-
-    public function testCanSetCsrfToken()
-    {
-        $this->form->setToken('12345');
     }
 
     public function testCanRenderCsrfToken()

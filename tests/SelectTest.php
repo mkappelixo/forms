@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Select;
 
-class SelectTest extends \PHPUnit\Framework\TestCase
+class SelectTest extends TestCase
 {
     use InputContractTest;
 

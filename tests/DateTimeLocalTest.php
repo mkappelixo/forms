@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\DateTimeLocal;
 
-class DateTimeLocalTest extends \PHPUnit\Framework\TestCase
+class DateTimeLocalTest extends TestCase
 {
     use InputContractTest;
 

@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Hidden;
 
-class HiddenTest extends \PHPUnit\Framework\TestCase
+class HiddenTest extends TestCase
 {
     use InputContractTest;
 

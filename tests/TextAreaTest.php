@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\TextArea;
 
-class TextAreaTest extends \PHPUnit\Framework\TestCase
+class TextAreaTest extends TestCase
 {
     use InputContractTest;
 

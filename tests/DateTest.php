@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Date;
 
-class DateTest extends \PHPUnit\Framework\TestCase
+class DateTest extends TestCase
 {
     use InputContractTest;
 

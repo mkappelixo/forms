@@ -2,7 +2,7 @@
 
 use Galahad\Forms\FormBuilder;
 
-class OldInputTest extends \PHPUnit\Framework\TestCase
+class OldInputTest extends TestCase
 {
     public function setUp()
     {

@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\Password;
 
-class PasswordTest extends \PHPUnit\Framework\TestCase
+class PasswordTest extends TestCase
 {
     use TextSubclassContractTest;
 

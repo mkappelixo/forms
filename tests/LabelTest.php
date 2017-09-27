@@ -2,16 +2,11 @@
 
 use Galahad\Forms\Elements\Label;
 
-class LabelTest extends \PHPUnit\Framework\TestCase
+class LabelTest extends TestCase
 {
     public function tearDown()
     {
         Mockery::close();
-    }
-
-    public function testLabelCanBeCreated()
-    {
-        $label = new Label('Email');
     }
 
     public function testRenderBasicLabel()

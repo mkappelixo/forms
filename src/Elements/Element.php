@@ -35,16 +35,6 @@ abstract class Element
 
     /**
      * @param string $attribute
-     * @param string|null $value
-     * @return $this
-     */
-    public function setAttribute($attribute, $value = null)
-    {
-        return $this->attribute($attribute, $value);
-    }
-
-    /**
-     * @param string $attribute
      * @return $this
      */
     public function removeAttribute($attribute)
@@ -153,6 +143,7 @@ abstract class Element
     /**
      * $element->foo('bar') -> $element->attribute('foo', 'bar')
      * $element->foo() -> $element->attribute('foo', 'foo')
+     * $element->setAttribute -> $element->attribute
      *
      * @param string $method
      * @param array $params
@@ -160,6 +151,11 @@ abstract class Element
      */
     public function __call($method, $params)
     {
+        if (0 === strpos($method, 'set') && method_exists($this, $setMethod = substr($method, 3))) {
+            trigger_error("Please use $setMethod instead of $method", E_USER_DEPRECATED);
+            return call_user_func_array([$this, $setMethod], $params);
+        }
+
         return $this->attribute($method, count($params) ? $params[0] : $method);
     }
 

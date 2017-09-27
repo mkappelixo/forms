@@ -4,7 +4,7 @@ use Illuminate\Contracts\Session\Session;
 use Galahad\Forms\ErrorStore\IlluminateErrorStore;
 use Illuminate\Support\MessageBag;
 
-class IlluminateErrorStoreTest extends \PHPUnit\Framework\TestCase
+class IlluminateErrorStoreTest extends TestCase
 {
     public function test_it_converts_array_keys_to_dot_notation()
     {

@@ -2,7 +2,7 @@
 
 use Galahad\Forms\FormBuilder;
 
-class BindingTest extends \PHPUnit\Framework\TestCase
+class BindingTest extends TestCase
 {
     /** @var FormBuilder */
     protected $form;

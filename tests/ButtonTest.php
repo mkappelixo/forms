@@ -2,13 +2,8 @@
 
 use Galahad\Forms\Elements\Button;
 
-class ButtonTest extends \PHPUnit\Framework\TestCase
+class ButtonTest extends TestCase
 {
-    public function testButtonCanBeCreated()
-    {
-        $submit = new Button('Click Me', 'click-me');
-    }
-
     public function testRenderBasicButton()
     {
         $button = new Button('Click Me', 'click-me');

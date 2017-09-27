@@ -2,7 +2,7 @@
 
 use Galahad\Forms\Elements\File;
 
-class FileTest extends \PHPUnit\Framework\TestCase
+class FileTest extends TestCase
 {
     use InputContractTest;
 
