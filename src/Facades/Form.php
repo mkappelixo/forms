@@ -14,6 +14,6 @@ class Form extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'galahad.form';
+        return 'galahad.forms';
     }
 }

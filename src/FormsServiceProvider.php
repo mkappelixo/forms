@@ -33,9 +33,9 @@ class FormsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'galahad.form',
-            'galahad.form.errorstore',
-            'galahad.form.oldinput',
+            'galahad.forms',
+            'galahad.forms.errorstore',
+            'galahad.forms.oldinput',
         ];
     }
 
@@ -44,7 +44,7 @@ class FormsServiceProvider extends ServiceProvider
      */
     protected function registerErrorStore()
     {
-        $this->app->singleton('galahad.form.errorstore', function ($app) {
+        $this->app->singleton('galahad.forms.errorstore', function ($app) {
             return new IlluminateErrorStore($app['session.store']);
         });
 
@@ -56,7 +56,7 @@ class FormsServiceProvider extends ServiceProvider
      */
     protected function registerOldInput()
     {
-        $this->app->singleton('galahad.form.oldinput', function ($app) {
+        $this->app->singleton('galahad.forms.oldinput', function ($app) {
             return new IlluminateOldInputProvider($app['session.store']);
         });
 
@@ -68,10 +68,10 @@ class FormsServiceProvider extends ServiceProvider
      */
     protected function registerFormBuilder()
     {
-        $this->app->singleton('galahad.form', function ($app) {
+        $this->app->singleton('galahad.forms', function ($app) {
             return (new FormBuilder())
-                ->setErrorStore($app['galahad.form.errorstore'])
-                ->setOldInputProvider($app['galahad.form.oldinput'])
+                ->setErrorStore($app['galahad.forms.errorstore'])
+                ->setOldInputProvider($app['galahad.forms.oldinput'])
                 ->setToken(optional($app['session.store'])->token());
         });
 
