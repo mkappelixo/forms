@@ -17,7 +17,7 @@ Build HTML forms with a fluent syntax.
 You can install this package via Composer by running this command in your terminal in the root of your project:
 
 ```bash
-composer require galahad/form
+composer require galahad/forms
 ```
 
 ### Laravel
