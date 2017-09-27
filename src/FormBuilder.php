@@ -319,13 +319,13 @@ class FormBuilder
 
     /**
      * @param mixed $data
-     * @return $this
+     * @return string
      */
     public function bind($data)
     {
         $this->boundData = new BoundData($data);
 
-        return $this;
+        return '';
     }
 
     /**
