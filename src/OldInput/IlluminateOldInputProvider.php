@@ -30,23 +30,29 @@ class IlluminateOldInputProvider implements OldInputInterface
     }
 
     /**
-     * @param string $key
      * @return mixed
+     * @param string $key
+     * @param null $default
      */
-    public function getOldInput($key)
+    public function getOldInput($key = null, $default = null)
     {
         return Arr::get(
             $this->session->get('_old_input', []),
-            $this->transformKey($key)
+            $this->transformKey($key),
+            $default
         );
     }
 
     /**
      * @param string $key
-     * @return string
+     * @return string|null
      */
-    protected function transformKey($key)
+    protected function transformKey($key = null)
     {
+        if (null === $key) {
+            return $key;
+        }
+
         return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
     }
 }
