@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/glhd/forms.svg?branch=master)](https://travis-ci.org/glhd/forms) [![Coverage Status](https://coveralls.io/repos/github/glhd/forms/badge.svg?branch=master)](https://coveralls.io/github/glhd/forms?branch=master)
+
 
 Galahad/Forms
 ========
