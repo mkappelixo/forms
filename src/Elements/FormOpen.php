@@ -2,6 +2,8 @@
 
 namespace Galahad\Forms\Elements;
 
+use Illuminate\Support\Facades\App;
+
 class FormOpen extends Element
 {
     /** @var array */
@@ -149,7 +151,7 @@ class FormOpen extends Element
      */
     public function route($name, $parameters = [], $absolute = true)
     {
-        return $this->action($this->route($name, $parameters, $absolute));
+        return $this->action(route($name, $parameters, $absolute));
     }
 
     /**

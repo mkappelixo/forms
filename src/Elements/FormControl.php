@@ -24,12 +24,12 @@ abstract class FormControl extends Element
     }
 
     /**
-     * @param bool $conditional
+     * @param bool|\Closure $condition
      * @return $this
      */
-    public function required($conditional = true)
+    public function required($condition = true)
     {
-        return $this->setBooleanAttribute('required', $conditional);
+        return $this->setBooleanAttribute('required', value($condition));
     }
 
     /**
@@ -61,17 +61,26 @@ abstract class FormControl extends Element
     /**
      * @return $this
      */
-    public function enable()
+    public function enable($condition = null)
     {
+        if (null !== $condition && false === value($condition)) {
+            return $this->disable();
+        }
+
         return $this->removeAttribute('disabled')
             ->removeAttribute('readonly');
     }
 
     /**
      * @return $this
+     * @param bool|\Closure|null $condition
      */
-    public function autofocus()
+    public function autofocus($condition = null)
     {
+        if (null !== $condition && false === value($condition)) {
+            return $this->unfocus();
+        }
+
         return $this->attribute('autofocus', 'autofocus');
     }
 
@@ -89,7 +98,7 @@ abstract class FormControl extends Element
      */
     public function tabindex($index = null)
     {
-        return $this->attribute('tabindex', $index ?? static::$tabIndex++);
+        return $this->attribute('tabindex', $index ?? FormControl::$tabIndex++);
     }
 
     /**
@@ -97,6 +106,6 @@ abstract class FormControl extends Element
      */
     public function untabbable()
     {
-        return $this->tabindex(0);
+        return $this->tabindex(-1);
     }
 }
