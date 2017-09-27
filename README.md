@@ -1,13 +1,8 @@
-> **Important: This package is not actively maintained.** For bug fixes and new features, please fork.
 
-Form
+Galahad/Forms
 ========
 
-[![This Project Has Been Deprecated.](http://www.repostatus.org/badges/0.1.0/abandoned.svg)](http://www.repostatus.org/#abandoned)
-[![Code Climate](https://codeclimate.com/github/galahad/form/badges/gpa.svg)](https://codeclimate.com/github/galahad/form)
-[![Coverage Status](https://coveralls.io/repos/galahad/form/badge.svg?branch=master)](https://coveralls.io/r/galahad/form?branch=master)
-
-Boring name for a boring package. Builds form HTML with a fluent-ish, hopefully intuitive syntax.
+Build HTML forms with a fluent syntax.
 
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
@@ -27,29 +22,7 @@ composer require galahad/form
 
 ### Laravel
 
-> This package works great as a replacement Form Builder that was removed in Laravel 5. The API is different but all of the features are there.
-
-If you are using Laravel 4 or 5, you can register the FormServiceProvider to automatically gain access to the Old Input and Error Message functionality.
-
-To do so, just update the `providers` array in your `config/app.php`:
-
-```php
-'providers' => [
-        //...
-        'Galahad\Forms\FormServiceProvider'
-    ],
-```
-
-You can also choose to use the Facade by adding an alias in `config/app.php`:
-
-```php
-'aliases' => [
-        //...
-        'Form' => 'Galahad\Forms\Facades\Form',
-    ],
-```
-
-> Note that in Laravel 4, there is already a Form facade for the built-in Form Builder. If you want to use both, use a different alias. If you'd just like to use this one, remove the Form alias that points to the Illuminate component.
+> This package will be auto-discovered in Laravel 5.5.
 
 <a href="#basic-usage"></a>
 ## Basic Usage
