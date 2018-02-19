@@ -2,10 +2,12 @@
 
 namespace Galahad\Forms\Elements;
 
+use Illuminate\Contracts\Support\Htmlable;
+
 /**
  *
  */
-abstract class Element
+abstract class Element implements Htmlable
 {
     /** @var array */
     protected $attributes = [];
@@ -136,6 +138,11 @@ abstract class Element
      * @return string
      */
     public function __toString()
+    {
+        return $this->render();
+    }
+
+    public function toHtml()
     {
         return $this->render();
     }
